@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>[*Bài tập] Ứng dụng quản lý sản phẩm sử dụng hàm</title>
+</head>
+<style>
+    #control{
+        width: 800px;
+    }
+    .header {
+        padding: 10px;
+        background-color: rgba(236, 190, 190, 0.39);
+        width: 300px;
+        border-radius: 4px;
+    }
+
+    .header input[type=text] {
+        width: 70%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .header button {
+        width: 25%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 70%;
+    }
+
+    #customers td, #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #customers tr:hover {
+        background-color: #ddd;
+    }
+
+    #customers th {
+        border: none;
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04AA6D;
+        color: white;
+    }
+
+    tr, td, th {
+        text-align: left;
+    }
+</style>
+<body>
+<div id="control">
+    <h1>Add New Product</h1>
+    <div class="header">
+        <input type="text" id="newProduct">
+        <button onclick="addProduct()">Add</button>
+    </div>
+    <div>
+        <h2>Display All Product</h2>
+    </div>
+    <table id="customers">
+        <tr>
+            <th colspan="10">Product Name</th>
+            <th colspan="2" style="text-align: right"><span id="count"></span> product</th>
+        </tr>
+        <tbody id="showProduct">
+
+        </tbody>
+
+    </table>
+</div>
+<script>
+    let arrayA = new Array();
+    arrayA = ["Samsung Galaxy", "Sony Xperia"];
+    showProduct(arrayA);
+
+    function showProduct(arrayA) {
+        let text = "";
+        document.getElementById("count").innerText = arrayA.length;
+        for (let i = 0; i < arrayA.length; i++) {
+            text += "<tr>";
+            text += "<td id='nameProduct' colspan='6'>" + arrayA[i] + "</td>";
+            text += "<td id='editProduct' colspan='3'>" + '<button onclick="editProduct(' + i + ')">' + "Edit" + '</button>' + "</td>";
+            text += "<td id='deleteProduct' colspan='3'>" + '<button onclick="deleteProduct(' + i + ')">' + "Delete" + '</button>' + "</td>";
+            text += "</tr>";
+        }
+        document.getElementById("showProduct").innerHTML = text;
+    }
+
+    function addProduct() {
+        let a = document.getElementById("newProduct").value;
+        if (a.trim() == "") {
+            document.getElementById("newProduct").value = "";
+            return alert("Bạn chưa nhập giá trị !! xin hãy nhập lại !!");
+        }
+        arrayA.push(a);
+        document.getElementById("newProduct").value = "";
+        showProduct(arrayA);
+    }
+
+    function deleteProduct(id) {
+        arrayA.splice(id, 1);
+        showProduct(arrayA);
+    }
+
+    function editProduct(id) {
+        let a = prompt("Nhập vào giá trị bạn muốn thay đổi !!", arrayA[id]);
+        if (a.trim() == "") {
+            document.getElementById("newProduct").value = "";
+            return alert("Bạn chưa nhập giá trị !! xin hãy nhập lại !!");
+        }
+        arrayA[id] = a;
+        showProduct(arrayA);
+    }
+
+</script>
+</body>
+</html>
